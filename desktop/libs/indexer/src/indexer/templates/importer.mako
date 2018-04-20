@@ -331,6 +331,14 @@ ${ assist.assistPanel() }
                        placeholder="${ _('The list of topics to consume, e.g. orders,returns') }"></select>
                 ## <select data-bind="selectize: createWizard.source.kafkaTopics, value: createWizard.source.kafkaSelectedTopics" placeholder="${ _('The list of topics to consume, e.g. orders,returns') }"></select>
               </label>
+              
+              <label class="control-label"><div>${ _('Field names') }</div>
+                <input type="text" class="input-xxlarge" data-bind="value: createWizard.source.kafkaFieldNames" placeholder="${ _('The list of fields to consume, e.g. orders,returns') }">
+              </label>
+
+              <label class="control-label"><div>${ _('Field types') }</div>
+                <input type="text" class="input-xxlarge" data-bind="value: createWizard.source.kafkaFieldTypes" placeholder="${ _('The list of topics to consume, e.g. orders,returns') }">
+              </label>
             </div>
           <!-- /ko -->
 
@@ -1530,6 +1538,12 @@ ${ assist.assistPanel() }
           viewModel.createWizard.guessFieldTypes();
         }
       });
+      self.kafkaFieldType = ko.observable('delimited'); // delimited, bytearray
+      self.kafkaFieldDelimiter = ko.observable(',');
+      self.kafkaFieldNames = ko.observable('');
+      self.kafkaFieldTypes = ko.observable('');
+      self.kafkaFieldSchemaPath = ko.observable('');
+
 
       // Public streams
       self.publicStreams = ko.observable([
