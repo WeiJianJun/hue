@@ -325,12 +325,11 @@ ${ assist.assistPanel() }
           <!-- ko if: createWizard.source.inputFormat() == 'kafka' -->
             <div class="control-group">
               <label class="control-label"><div>${ _('Topics') }</div>
-                ##<input type="text" class="input-xxlarge" data-bind="value: createWizard.source.kafkaTopics">
                 <select data-bind="options: createWizard.source.kafkaTopics,
                        value: createWizard.source.kafkaSelectedTopics,
                        optionsCaption: 'Choose...'"
                        placeholder="${ _('The list of topics to consume, e.g. orders,returns') }"></select>
-                ##<select data-bind="selectize: createWizard.source.kafkaTopics, value: createWizard.source.kafkaSelectedTopics" placeholder="${ _('The list of topics to consume, e.g. orders,returns') }"></select>
+                ## <select data-bind="selectize: createWizard.source.kafkaTopics, value: createWizard.source.kafkaSelectedTopics" placeholder="${ _('The list of topics to consume, e.g. orders,returns') }"></select>
               </label>
             </div>
           <!-- /ko -->
@@ -1524,7 +1523,7 @@ ${ assist.assistPanel() }
       self.draggedQuery = ko.observable();
 
       // Kafka
-      self.kafkaTopics = ko.observable([]);
+      self.kafkaTopics = ko.observableArray();
       self.kafkaSelectedTopics = ko.observable('');
       self.kafkaSelectedTopics.subscribe(function(newValue) {
         if (newValue) {
@@ -1575,7 +1574,7 @@ ${ assist.assistPanel() }
         } else if (self.inputFormat() == 'manual') {
           return true;
         } else if (self.inputFormat() == 'kafka') {
-          return self.kafkaSelectedTopics().length > 0;
+          return self.kafkaSelectedTopics() && self.kafkaSelectedTopics().length > 0;
         } else if (self.inputFormat() == 'streams') {
           return self.publicStreamsSelection() == 'SFDC' ? (
               self.publicStreamsUsername().length > 0
